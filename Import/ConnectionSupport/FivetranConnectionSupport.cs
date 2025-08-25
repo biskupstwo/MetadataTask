@@ -112,11 +112,11 @@ public class FivetranConnectionSupport : IConnectionSupport
                 .GetConnectorSchemasAsync(connector.Id, CancellationToken.None)
                 .Result;
 
-            foreach (var schema in connectorSchemas?.Schemas ?? [])
+            foreach (var schema in connectorSchemas.Schemas)
             {
-                foreach (var table in schema.Value?.Tables ?? [])
+                foreach (var table in schema.Value.Tables)
                 {
-                    allMappingsBuffer += $"  {connector.Id}: {schema.Key}.{table.Key} -> {schema.Value?.NameInDestination}.{table.Value.NameInDestination}\n";
+                    allMappingsBuffer += $"  {connector.Id}: {schema.Key}.{table.Key} -> {schema.Value.NameInDestination}.{table.Value.NameInDestination}\n";
                 }
             }
         });

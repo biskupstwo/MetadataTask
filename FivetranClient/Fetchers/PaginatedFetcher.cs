@@ -35,7 +35,7 @@ public sealed class PaginatedFetcher(HttpRequestHandler requestHandler) : BaseFe
     {
         cancellationToken.ThrowIfCancellationRequested();
         var currentPage = await currentPageTask;
-        var nextCursor = currentPage?.Data?.NextCursor;
+        var nextCursor = currentPage?.Data.NextCursor;
 
         IAsyncEnumerable<T>? nextResults = null;
         if (!string.IsNullOrWhiteSpace(nextCursor))
@@ -45,7 +45,7 @@ public sealed class PaginatedFetcher(HttpRequestHandler requestHandler) : BaseFe
             nextResults = this.ProcessPagesRecursivelyAsync(endpoint, nextTask, cancellationToken);
         }
 
-        foreach (var item in currentPage?.Data?.Items ?? [])
+        foreach (var item in currentPage?.Data.Items)
         {
             cancellationToken.ThrowIfCancellationRequested();
             yield return item;
